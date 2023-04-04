@@ -1,0 +1,18 @@
+﻿@page "/pizzasFromDB"
+@using MyFirstBlazorApp.Data
+@inject PizzaService PizzaSvc
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<h1>Choose your pizza</h1>
+
+<p>We have all these delicious recipes:</p>
+
+@code {
+    private List<Pizza> todaysPizzas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        todaysPizzas = await HttpClient.GetFromJsonAsync<List<Pizza>>(NavigationManager.BaseUri + "specials");
+    }
+}

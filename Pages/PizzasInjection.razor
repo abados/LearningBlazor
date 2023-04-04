@@ -1,0 +1,44 @@
+﻿@page "/pizzasIngection"
+@using MyFirstBlazorApp.Data
+@inject PizzaService PizzaSvc
+
+<h1>Choose your pizza</h1>
+
+<p>We have all these delicious recipes:</p>
+
+@code {
+    private Pizza[] todaysPizzas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        todaysPizzas = await PizzaSvc.GetPizzasAsync();
+    }
+}
+
+@if (todaysPizzas == null)
+{
+    <p>We're finding out what pizzas are available today...</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Pizza Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pizza in todaysPizzas)
+            {
+                <tr>
+                    <td>@pizza.Name</td>
+                    <td>@pizza.Description</td>
+                    <td>@pizza.7</td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>
+}
